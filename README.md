@@ -1,8 +1,12 @@
-# Canoe Solidity
+# 🛶 Canoe Solidity 
 Lightweight Javascript library for decoding constructor arguments.
 
 ## Summary
 Canoe works by reading a contract's ABI and decoding the constructor bytecode with the argument types provided.
+
+## Install
+
+    npm install canoe-soldity
 
 ## Requirements
 - ABI schema 2.0
