@@ -4,7 +4,64 @@ Lightweight Javascript library for decoding constructor arguments.
 ## Summary
 Canoe works by reading a contract's ABI and decoding the constructor bytecode with the argument types provided.
 
-## Usage
+## Requirements
+- ABI schema 2.0
+
+## Documentation
+### Functions
+
+<dl>
+<dt><a href="#decodeConstructorArgs">decodeConstructorArgs(contractABI, bytecode)</a> ⇒ <code>Object</code></dt>
+<dd><p>Decodes constructor args.</p>
+</dd>
+<dt><a href="#encodeConstructorArgs">encodeConstructorArgs(inputs)</a> ⇒ <code>string</code></dt>
+<dd><p>Generates constructor args bytecode based on input data.</p>
+</dd>
+</dl>
+
+<a name="decodeConstructorArgs"></a>
+
+### decodeConstructorArgs(contractABI, bytecode) ⇒ <code>Object</code>
+Decodes constructor args.
+
+**Kind**: global function  
+**Returns**: <code>Object</code> - decodedArgs - Object representing decoded args with name, type, and data fields  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| contractABI | <code>Object</code> | ABI of contract whose args to decode |
+| bytecode | <code>string</code> | Constructor args bytecode |
+
+<a name="encodeConstructorArgs"></a>
+
+### encodeConstructorArgs(inputs) ⇒ <code>string</code>
+Generates constructor args bytecode based on input data.
+
+**Kind**: global function  
+**Returns**: <code>string</code> - bytecode - Constructor args bytecode  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| inputs | <code>Array.&lt;Object&gt;</code> | Array of objects with name, and type fields |
+| inputs[].name | <code>string</code> | Name of argument |
+| inputs[].type | <code>string</code> | Type of argument |
+
+
+### Supported Types
+- [x] bool
+- [x] uint
+- [x] int
+- [ ] fixed
+- [x] address
+- [x] bytes1, bytes2, bytes3, ..., bytes32
+- [x] byte
+- [x] string
+- [x] arrays
+- [ ] multi-dimensional arrays
+- [ ] mapping
+- [ ] struct
+
+## Example
 
     const { decodeConstructorArgs } = require('canoe-solidity');
     let abiExample = {
@@ -77,29 +134,3 @@ Output:
         "data": "E10"
       }
     ]
-
-## Requirements
-- ABI schema 2.0
-
-## Documentation
-
-### API
-#### `decodeConstructorArgs(contractABI, bytecode)`
-Decodes constructor args.
-
-#### `encodeConstructorArgs(inputs)`
-Generates constructor args bytecode based on input data.
-
-#### Supported Types
-- [x] bool
-- [x] uint
-- [x] int
-- [ ] fixed
-- [x] address
-- [x] bytes1, bytes2, bytes3, ..., bytes32
-- [x] byte
-- [x] string
-- [x] arrays
-- [ ] multi-dimensional arrays
-- [ ] mapping
-- [ ] struct

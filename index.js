@@ -31,9 +31,9 @@ function formatSingle(type, data) {
 /**
  * Decodes constructor args.
  *
- * @param contractABI Object ABI of contract whose args to decode
- * @param bytecode String Constructor args bytecode
- * @return decodedArgs Object Object containing name, type, and data of decoded args
+ * @param {Object} contractABI - ABI of contract whose args to decode
+ * @param {string} bytecode - Constructor args bytecode
+ * @returns {Object} decodedArgs - Object representing decoded args with name, type, and data fields
  */
 function decodeConstructorArgs(contractABI, bytecode) {
   const constructor = _.findWhere(contractABI, { 'type': 'constructor'});
@@ -50,8 +50,10 @@ function decodeConstructorArgs(contractABI, bytecode) {
 /**
  * Generates constructor args bytecode based on input data.
  *
- * @param inputs Object[] Array of objects with name, type, and data fields
- * @param bytecode String Constructor args bytecode
+ * @param {Object[]} inputs - Array of objects with name, and type fields
+ * @param {string} inputs[].name - Name of argument
+ * @param {string} inputs[].type - Type of argument
+ * @returns {string} bytecode - Constructor args bytecode
  */
 function encodeConstructorArgs(inputs) {
   const inputTypes = _.pluck(inputs, 'type')
