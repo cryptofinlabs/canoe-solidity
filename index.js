@@ -36,7 +36,7 @@ function decodeConstructorArgs(contractABI, bytecode) {
     let decoded = abi.rawDecode(inputTypes, new Buffer(bytecode, 'hex'));
     let decodedArgs = _.map(decoded, function(e, i) {
       const data = formatSingle(inputTypes[i], e);
-      return { 'name': inputNames[i], 'type': inputTypes[i], 'value': data };
+      return { 'name': inputNames[i], 'type': inputTypes[i], 'data': data };
     });
     return decodedArgs;
   } catch (e) {
@@ -47,8 +47,8 @@ function decodeConstructorArgs(contractABI, bytecode) {
 function encodeConstructorArgs(inputs) {
   try {
     const inputTypes = _.pluck(inputs, 'type')
-    const values = _.pluck(inputs, 'value')
-    const encoded = abi.rawEncode(inputTypes, values);
+    const args = _.pluck(inputs, 'data')
+    const encoded = abi.rawEncode(inputTypes, args);
     const bytecode = encoded.toString('hex');
     return bytecode;
   } catch (e) {

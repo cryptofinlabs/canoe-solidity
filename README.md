@@ -48,7 +48,7 @@ Output:
       {
         "name": "addresses",
         "type": "address[]",
-        "value": [
+        "data": [
           "ffffffffffffffffffffffffffffffffffffffff",
           "f1e48f13768bd8114a530070b43257a63f24bb12"
         ]
@@ -56,7 +56,7 @@ Output:
       {
         "name": "quantities",
         "type": "uint256[]",
-        "value": [
+        "data": [
           "5",
           "10"
         ]
@@ -64,17 +64,17 @@ Output:
       {
         "name": "_creationUnit",
         "type": "uint256",
-        "value": "10000000000000000000"
+        "data": "10000000000000000000"
       },
       {
         "name": "_name",
         "type": "string",
-        "value": "Ethereum10 Q2-2018"
+        "data": "Ethereum10 Q2-2018"
       },
       {
         "name": "_symbol",
         "type": "string",
-        "value": "E10"
+        "data": "E10"
       }
     ]
 

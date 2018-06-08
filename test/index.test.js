@@ -13,7 +13,7 @@ describe('single values', function() {
             {
               'name': 'bool',
               'type': 'bool',
-              //'value': true
+              //'data': true
             },
           ],
           'payable': false,
@@ -28,7 +28,7 @@ describe('single values', function() {
       {
         'name': 'bool',
         'type': 'bool',
-        'value': 'true'
+        'data': 'true'
       }
     ];
     assert.deepEqual(result, expected, 'output should match expected');
@@ -42,7 +42,7 @@ describe('single values', function() {
             {
               'name': 'uint256',
               'type': 'uint256',
-              //'value': 31419526535
+              //'data': 31419526535
             },
           ],
           'payable': false,
@@ -57,7 +57,7 @@ describe('single values', function() {
       {
         'name': 'uint256',
         'type': 'uint256',
-        'value': '31419526535'
+        'data': '31419526535'
       }
     ];
     assert.deepEqual(result, expected, 'output should match expected');
@@ -71,7 +71,7 @@ describe('single values', function() {
             {
               'name': 'int256',
               'type': 'int256',
-              //'value': -14
+              //'data': -14
             },
           ],
           'payable': false,
@@ -86,7 +86,7 @@ describe('single values', function() {
       {
         'name': 'int256',
         'type': 'int256',
-        'value': '-14'
+        'data': '-14'
       }
     ];
     assert.deepEqual(result, expected, 'output should match expected');
@@ -100,7 +100,7 @@ describe('single values', function() {
             {
               'name': 'address',
               'type': 'address',
-              //'value': '0xF1E48f13768bD8114A530070b43257a63f24bb12'
+              //'data': '0xF1E48f13768bD8114A530070b43257a63f24bb12'
             },
           ],
           'payable': false,
@@ -115,7 +115,7 @@ describe('single values', function() {
       {
         'name': 'address',
         'type': 'address',
-        'value': 'f1e48f13768bd8114a530070b43257a63f24bb12'
+        'data': 'f1e48f13768bd8114a530070b43257a63f24bb12'
       }
     ];
     assert.deepEqual(result, expected, 'output should match expected');
@@ -129,7 +129,7 @@ describe('single values', function() {
             {
               'name': 'bytes16',
               'type': 'bytes16',
-              //'value': '0xaaaabbbbccccdddd'
+              //'data': '0xaaaabbbbccccdddd'
             },
           ],
           'payable': false,
@@ -144,7 +144,7 @@ describe('single values', function() {
       {
         'name': 'bytes16',
         'type': 'bytes16',
-        'value': 'aaaabbbbccccdddd0000000000000000'
+        'data': 'aaaabbbbccccdddd0000000000000000'
       }
     ];
     assert.deepEqual(result, expected, 'output should match expected');
@@ -159,7 +159,7 @@ describe('single values', function() {
             {
               'name': 'string',
               'type': 'string',
-              //'value': 'Bskt is the best!'
+              //'data': 'Bskt is the best!'
             },
           ],
           'payable': false,
@@ -174,7 +174,7 @@ describe('single values', function() {
       {
         'name': 'string',
         'type': 'string',
-        'value': 'Bskt is the best!'
+        'data': 'Bskt is the best!'
       }
     ];
     assert.deepEqual(result, expected, 'output should match expected');
@@ -193,7 +193,7 @@ describe('arrays', function() {
             {
               'name': 'uint256s',
               'type': 'uint256[]',
-              //'value': [1, 3, 5, 9, 99]
+              //'data': [1, 3, 5, 9, 99]
             },
           ],
           'payable': false,
@@ -208,7 +208,7 @@ describe('arrays', function() {
       {
         'name': 'uint256s',
         'type': 'uint256[]',
-        'value': ['1', '3', '5', '9', '99']
+        'data': ['1', '3', '5', '9', '99']
       }
     ];
     assert.deepEqual(result, expected, 'result should match expected');
@@ -222,7 +222,7 @@ describe('arrays', function() {
             {
               'name': 'addresses',
               'type': 'address[]',
-              //'value': ['0xF1E48f13768bD8114A530070b43257a63f24bb12', '0x0', '0x2']
+              //'data': ['0xF1E48f13768bD8114A530070b43257a63f24bb12', '0x0', '0x2']
             },
           ],
           'payable': false,
@@ -237,7 +237,7 @@ describe('arrays', function() {
       {
         'name': 'addresses',
         'type': 'address[]',
-        'value': [
+        'data': [
           'f1e48f13768bd8114a530070b43257a63f24bb12',
           '0000000000000000000000000000000000000000',
           '0000000000000000000000000000000000000002']
@@ -254,7 +254,7 @@ describe('arrays', function() {
             {
               'name': 'bytes32s',
               'type': 'bytes32[]',
-              //'value': [
+              //'data': [
                 //'0xffffffffffffffffffffffffffffffffffffffff',
                 //'0xF1E48f13768bD8114A530070b43257a63f24bb12',
                 //'0xcccccccccccccccccccccccccccccccccccccccc'
@@ -273,7 +273,7 @@ describe('arrays', function() {
       {
         'name': 'bytes32s',
         'type': 'bytes32[]',
-        'value': [
+        'data': [
           'ffffffffffffffffffffffffffffffffffffffff000000000000000000000000',
           'f1e48f13768bd8114a530070b43257a63f24bb12000000000000000000000000',
           'cccccccccccccccccccccccccccccccccccccccc000000000000000000000000'
@@ -291,7 +291,7 @@ describe('arrays', function() {
             {
               'name': 'bytes4s',
               'type': 'bytes4[]',
-              //'value': [
+              //'data': [
                 //'0xff',
                 //'0xF1E48f13'
               //]
@@ -309,7 +309,7 @@ describe('arrays', function() {
       {
         'name': 'bytes4s',
         'type': 'bytes4[]',
-        'value': [
+        'data': [
           'ff000000',
           'f1e48f13'
         ]
@@ -326,7 +326,7 @@ describe('arrays', function() {
             {
               'name': 'bytes',
               'type': 'bytes',
-              //'value': [
+              //'data': [
                 //'0xaa',
                 //'0xbb',
                 //'0xcc',
@@ -346,7 +346,7 @@ describe('arrays', function() {
       {
         'name': 'bytes',
         'type': 'bytes',
-        'value': 'aabbccdd'
+        'data': 'aabbccdd'
       },
     ];
     assert.deepEqual(result, expected, 'result should match expected');
@@ -361,9 +361,9 @@ describe('real world contracts', function() {
     const abi = require('../data/abis/MintableNFT.json');
     const bytecode = require('../data/bytecodes/MintableNFT.json')['constructor-bytecode'];
     const expected = [
-      { name: '_name', type: 'string', value: 'ExperimentalNFT' },
-      { name: '_symbol', type: 'string', value: 'e11nft' },
-      { name: '_bytesMask', type: 'uint8', value: '12' }
+      { name: '_name', type: 'string', data: 'ExperimentalNFT' },
+      { name: '_symbol', type: 'string', data: 'e11nft' },
+      { name: '_bytesMask', type: 'uint8', data: '12' }
     ];
     const result = decodeConstructorArgs(abi, bytecode);
     assert.deepEqual(result, expected, 'result should match expected')
@@ -376,47 +376,47 @@ describe('real world contracts', function() {
       {
         'name': '_storageAddress',
         'type': 'address',
-        'value': '129caf12c70fe9633fe24b15497adafc913c842c'
+        'data': '129caf12c70fe9633fe24b15497adafc913c842c'
       },
       {
         'name': '_implementation',
         'type': 'address',
-        'value': 'ed06d46ffb309128c4458a270c99c824dc127f5d'
+        'data': 'ed06d46ffb309128c4458a270c99c824dc127f5d'
       },
       {
         'name': '_admin',
         'type': 'address',
-        'value': 'e03793e63776cf69fe42414ed03bb924d4d9157e'
+        'data': 'e03793e63776cf69fe42414ed03bb924d4d9157e'
       },
       {
         'name': '_feeAccount',
         'type': 'address',
-        'value': 'e03793e63776cf69fe42414ed03bb924d4d9157e'
+        'data': 'e03793e63776cf69fe42414ed03bb924d4d9157e'
       },
       {
         'name': '_feeTake',
         'type': 'uint256',
-        'value': '2000000000000000'
+        'data': '2000000000000000'
       },
       {
         'name': '_feeAmountThreshold',
         'type': 'uint256',
-        'value': '100000000000000000'
+        'data': '100000000000000000'
       },
       {
         'name': '_etherDelta',
         'type': 'address',
-        'value': '8d12a197cb00d4747a1fe03395095ce2a5cc6819'
+        'data': '8d12a197cb00d4747a1fe03395095ce2a5cc6819'
       },
       {
         'name': '_tradeABIHash',
         'type': 'bytes32',
-        'value': '57d54158692b43b05f55462695c3dc04b0217afddfda3f27a07ec31ee46b9c20'
+        'data': '57d54158692b43b05f55462695c3dc04b0217afddfda3f27a07ec31ee46b9c20'
       },
       {
         'name': '_withdrawABIHash',
         'type': 'bytes32',
-        'value': '369521fb20e3cff93d515dad43dc9f9f23dfdbb8d0ca564c480634d401bf9aa1'
+        'data': '369521fb20e3cff93d515dad43dc9f9f23dfdbb8d0ca564c480634d401bf9aa1'
       }
     ];
     const result = decodeConstructorArgs(abi, bytecode);
