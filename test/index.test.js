@@ -121,9 +121,98 @@ describe('single values', function() {
     assert.deepEqual(result, expected, 'output should match expected');
   });
 
+  it('should correctly decode bytes16', function() {
+    const contractABI = {
+      'abi': [
+        {
+          'inputs': [
+            {
+              'name': 'bytes16',
+              'type': 'bytes16',
+              //'value': '0xaaaabbbbccccdddd'
+            },
+          ],
+          'payable': false,
+          'stateMutability': 'nonpayable',
+          'type': 'constructor'
+        },
+      ]
+    };
+    const bytecode = 'aaaabbbbccccdddd000000000000000000000000000000000000000000000000';
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
+    const expected = [
+      {
+        'name': 'bytes16',
+        'type': 'bytes16',
+        'value': 'aaaabbbbccccdddd0000000000000000'
+      }
+    ];
+    assert.deepEqual(result, expected, 'output should match expected');
+  });
+
+
+  it('should correctly decode string', function() {
+    const contractABI = {
+      'abi': [
+        {
+          'inputs': [
+            {
+              'name': 'string',
+              'type': 'string',
+              //'value': 'Bskt is the best!'
+            },
+          ],
+          'payable': false,
+          'stateMutability': 'nonpayable',
+          'type': 'constructor'
+        },
+      ]
+    };
+    const bytecode = '0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001142736b7420697320746865206265737421000000000000000000000000000000';
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
+    const expected = [
+      {
+        'name': 'string',
+        'type': 'string',
+        'value': 'Bskt is the best!'
+      }
+    ];
+    assert.deepEqual(result, expected, 'output should match expected');
+  });
+
+
 });
 
 describe('arrays', function() {
+
+  it('should correctly decode uint256 array', function() {
+    const contractABI = {
+      'abi': [
+        {
+          'inputs': [
+            {
+              'name': 'uint256s',
+              'type': 'uint256[]',
+              //'value': [1, 3, 5, 9, 99]
+            },
+          ],
+          'payable': false,
+          'stateMutability': 'nonpayable',
+          'type': 'constructor'
+        },
+      ]
+    };
+    const bytecode = '0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000090000000000000000000000000000000000000000000000000000000000000063';
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
+    const expected = [
+      {
+        'name': 'uint256s',
+        'type': 'uint256[]',
+        'value': ['1', '3', '5', '9', '99']
+      }
+    ];
+    assert.deepEqual(result, expected, 'result should match expected');
+  });
 
   it('should correctly decode address array', function() {
     const contractABI = {
@@ -155,35 +244,6 @@ describe('arrays', function() {
       }
     ];
     assert.deepEqual(result, expected, 'output should match expected');
-  });
-
-  it('should correctly decode uint256 array', function() {
-    const contractABI = {
-      'abi': [
-        {
-          'inputs': [
-            {
-              'name': 'uint256s',
-              'type': 'uint256[]',
-              //'value': [1, 3, 5, 9, 99]
-            },
-          ],
-          'payable': false,
-          'stateMutability': 'nonpayable',
-          'type': 'constructor'
-        },
-      ]
-    };
-    const bytecode = '0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000090000000000000000000000000000000000000000000000000000000000000063';
-    const result = decodeConstructorArgs(contractABI.abi, bytecode);
-    const expected = [
-      {
-        'name': 'uint256s',
-        'type': 'uint256[]',
-        'value': ['1', '3', '5', '9', '99']
-      }
-    ];
-    assert.deepEqual(result, expected, 'result should match expected');
   });
 
   it('should correctly decode bytes32 array', function() {

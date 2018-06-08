@@ -86,11 +86,12 @@ Supported Types:
 - [x] bool
 - [x] uint
 - [x] int
-- [] fixed
+- [ ] fixed
 - [x] address
-- [x] arrays
 - [x] bytes1, bytes2, bytes3, ..., bytes32
 - [x] byte
 - [x] string
-- [] mapping
-- [] struct
+- [x] arrays
+- [ ] multi-dimensional arrays
+- [ ] mapping
+- [ ] struct
