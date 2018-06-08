@@ -28,32 +28,37 @@ function formatSingle(type, data) {
   return decodedData;
 }
 
+/**
+ * Decodes constructor args.
+ *
+ * @param contractABI Object ABI of contract whose args to decode
+ * @param bytecode String Constructor args bytecode
+ * @return decodedArgs Object Object containing name, type, and data of decoded args
+ */
 function decodeConstructorArgs(contractABI, bytecode) {
-  try {
-    const constructor = _.findWhere(contractABI, { 'type': 'constructor'});
-    const inputNames = _.pluck(constructor.inputs, 'name');
-    const inputTypes = _.pluck(constructor.inputs, 'type');
-    let decoded = abi.rawDecode(inputTypes, new Buffer(bytecode, 'hex'));
-    let decodedArgs = _.map(decoded, function(e, i) {
-      const data = formatSingle(inputTypes[i], e);
-      return { 'name': inputNames[i], 'type': inputTypes[i], 'data': data };
-    });
-    return decodedArgs;
-  } catch (e) {
-    console.log(e);
-  }
+  const constructor = _.findWhere(contractABI, { 'type': 'constructor'});
+  const inputNames = _.pluck(constructor.inputs, 'name');
+  const inputTypes = _.pluck(constructor.inputs, 'type');
+  let decoded = abi.rawDecode(inputTypes, new Buffer(bytecode, 'hex'));
+  let decodedArgs = _.map(decoded, function(e, i) {
+    const data = formatSingle(inputTypes[i], e);
+    return { 'name': inputNames[i], 'type': inputTypes[i], 'data': data };
+  });
+  return decodedArgs;
 }
 
+/**
+ * Generates constructor args bytecode based on input data.
+ *
+ * @param inputs Object[] Array of objects with name, type, and data fields
+ * @param bytecode String Constructor args bytecode
+ */
 function encodeConstructorArgs(inputs) {
-  try {
-    const inputTypes = _.pluck(inputs, 'type')
-    const args = _.pluck(inputs, 'data')
-    const encoded = abi.rawEncode(inputTypes, args);
-    const bytecode = encoded.toString('hex');
-    return bytecode;
-  } catch (e) {
-    console.log(e);
-  }
+  const inputTypes = _.pluck(inputs, 'type')
+  const args = _.pluck(inputs, 'data')
+  const encoded = abi.rawEncode(inputTypes, args);
+  const bytecode = encoded.toString('hex');
+  return bytecode;
 }
 
 module.exports = {

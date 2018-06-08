@@ -82,7 +82,15 @@ Output:
 - ABI schema 2.0
 
 ## Documentation
-Supported Types:
+
+### API
+#### `decodeConstructorArgs(contractABI, bytecode)`
+Decodes constructor args.
+
+#### `encodeConstructorArgs(inputs)`
+Generates constructor args bytecode based on input data.
+
+#### Supported Types
 - [x] bool
 - [x] uint
 - [x] int
