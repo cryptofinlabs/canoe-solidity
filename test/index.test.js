@@ -1,21 +1,7 @@
-const chai = require('chai');  
+const chai = require('chai');
 const assert = chai.assert;
-const { encoder, decoder } = require('../index.js');
+const { encodeConstructorArgs, decodeConstructorArgs } = require('../index.js');
 
-/**Types:
- * bool
- * uint
- * int
- * fixed
- * address
- * bytes1, bytes2, bytes3, ..., bytes32
- * byte
- * string
- * mapping
- * struct*
- *
- * arrays
- **/
 
 describe('single values', function() {
 
@@ -37,7 +23,7 @@ describe('single values', function() {
       ]
     };
     const bytecode = '0000000000000000000000000000000000000000000000000000000000000001';
-    const result = decoder(contractABI.abi, bytecode);
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
     const expected = [
       {
         'name': 'bool',
@@ -66,12 +52,41 @@ describe('single values', function() {
       ]
     };
     const bytecode = '0000000000000000000000000000000000000000000000000000000750bfed87';
-    const result = decoder(contractABI.abi, bytecode);
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
     const expected = [
       {
         'name': 'uint256',
         'type': 'uint256',
         'value': '31419526535'
+      }
+    ];
+    assert.deepEqual(result, expected, 'output should match expected');
+  });
+
+  it('should correctly decode int256', function() {
+    const contractABI = {
+      'abi': [
+        {
+          'inputs': [
+            {
+              'name': 'int256',
+              'type': 'int256',
+              //'value': -14
+            },
+          ],
+          'payable': false,
+          'stateMutability': 'nonpayable',
+          'type': 'constructor'
+        },
+      ]
+    };
+    const bytecode = 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff2';
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
+    const expected = [
+      {
+        'name': 'int256',
+        'type': 'int256',
+        'value': '-14'
       }
     ];
     assert.deepEqual(result, expected, 'output should match expected');
@@ -95,7 +110,7 @@ describe('single values', function() {
       ]
     };
     const bytecode = '000000000000000000000000f1e48f13768bd8114a530070b43257a63f24bb12';
-    const result = decoder(contractABI.abi, bytecode);
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
     const expected = [
       {
         'name': 'address',
@@ -128,12 +143,15 @@ describe('arrays', function() {
       ]
     };
     const bytecode = '00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000003000000000000000000000000f1e48f13768bd8114a530070b43257a63f24bb1200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002';
-    const result = decoder(contractABI.abi, bytecode);
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
     const expected = [
       {
         'name': 'addresses',
         'type': 'address[]',
-        'value': ['f1e48f13768bd8114a530070b43257a63f24bb12', '0000000000000000000000000000000000000000', '0000000000000000000000000000000000000002']
+        'value': [
+          'f1e48f13768bd8114a530070b43257a63f24bb12',
+          '0000000000000000000000000000000000000000',
+          '0000000000000000000000000000000000000002']
       }
     ];
     assert.deepEqual(result, expected, 'output should match expected');
@@ -157,7 +175,7 @@ describe('arrays', function() {
       ]
     };
     const bytecode = '0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000090000000000000000000000000000000000000000000000000000000000000063';
-    const result = decoder(contractABI.abi, bytecode);
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
     const expected = [
       {
         'name': 'uint256s',
@@ -165,7 +183,184 @@ describe('arrays', function() {
         'value': ['1', '3', '5', '9', '99']
       }
     ];
-    assert.deepEqual(result, expected, 'output should match expected');
+    assert.deepEqual(result, expected, 'result should match expected');
+  });
+
+  it('should correctly decode bytes32 array', function() {
+    const contractABI = {
+      'abi': [
+        {
+          'inputs': [
+            {
+              'name': 'bytes32s',
+              'type': 'bytes32[]',
+              //'value': [
+                //'0xffffffffffffffffffffffffffffffffffffffff',
+                //'0xF1E48f13768bD8114A530070b43257a63f24bb12',
+                //'0xcccccccccccccccccccccccccccccccccccccccc'
+              //]
+            },
+          ],
+          'payable': false,
+          'stateMutability': 'nonpayable',
+          'type': 'constructor'
+        },
+      ]
+    };
+    const bytecode = '00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000003ffffffffffffffffffffffffffffffffffffffff000000000000000000000000f1e48f13768bd8114a530070b43257a63f24bb12000000000000000000000000cccccccccccccccccccccccccccccccccccccccc000000000000000000000000';
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
+    const expected = [
+      {
+        'name': 'bytes32s',
+        'type': 'bytes32[]',
+        'value': [
+          'ffffffffffffffffffffffffffffffffffffffff000000000000000000000000',
+          'f1e48f13768bd8114a530070b43257a63f24bb12000000000000000000000000',
+          'cccccccccccccccccccccccccccccccccccccccc000000000000000000000000'
+        ]
+      },
+    ];
+    assert.deepEqual(result, expected, 'result should match expected');
+  });
+
+  it('should correctly decode bytes4 array', function() {
+    const contractABI = {
+      'abi': [
+        {
+          'inputs': [
+            {
+              'name': 'bytes4s',
+              'type': 'bytes4[]',
+              //'value': [
+                //'0xff',
+                //'0xF1E48f13'
+              //]
+            },
+          ],
+          'payable': false,
+          'stateMutability': 'nonpayable',
+          'type': 'constructor'
+        },
+      ]
+    };
+    const bytecode = '00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000002ff00000000000000000000000000000000000000000000000000000000000000f1e48f1300000000000000000000000000000000000000000000000000000000';
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
+    const expected = [
+      {
+        'name': 'bytes4s',
+        'type': 'bytes4[]',
+        'value': [
+          'ff000000',
+          'f1e48f13'
+        ]
+      },
+    ];
+    assert.deepEqual(result, expected, 'result should match expected');
+  });
+
+  it('should correctly decode bytes array', function() {
+    const contractABI = {
+      'abi': [
+        {
+          'inputs': [
+            {
+              'name': 'bytes',
+              'type': 'bytes',
+              //'value': [
+                //'0xaa',
+                //'0xbb',
+                //'0xcc',
+                //'0xdd'
+              //]
+            },
+          ],
+          'payable': false,
+          'stateMutability': 'nonpayable',
+          'type': 'constructor'
+        },
+      ]
+    };
+    const bytecode = '00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000004aabbccdd00000000000000000000000000000000000000000000000000000000';
+    const result = decodeConstructorArgs(contractABI.abi, bytecode);
+    const expected = [
+      {
+        'name': 'bytes',
+        'type': 'bytes',
+        'value': 'aabbccdd'
+      },
+    ];
+    assert.deepEqual(result, expected, 'result should match expected');
+  });
+
+
+});
+
+describe('real world contracts', function() {
+
+  it('should correctly decode MintableNFT', function() {
+    const abi = require('../data/abis/MintableNFT.json');
+    const bytecode = require('../data/bytecodes/MintableNFT.json')['constructor-bytecode'];
+    const expected = [
+      { name: '_name', type: 'string', value: 'ExperimentalNFT' },
+      { name: '_symbol', type: 'string', value: 'e11nft' },
+      { name: '_bytesMask', type: 'uint8', value: '12' }
+    ];
+    const result = decodeConstructorArgs(abi, bytecode);
+    assert.deepEqual(result, expected, 'result should match expected')
+  });
+
+  it('should correctly decode EnclavesDEXProxy', function() {
+    const abi = require('../data/abis/EnclavesDEXProxy.json');
+    const bytecode = require('../data/bytecodes/EnclavesDEXProxy.json')['constructor-bytecode'];
+    const expected = [
+      {
+        'name': '_storageAddress',
+        'type': 'address',
+        'value': '129caf12c70fe9633fe24b15497adafc913c842c'
+      },
+      {
+        'name': '_implementation',
+        'type': 'address',
+        'value': 'ed06d46ffb309128c4458a270c99c824dc127f5d'
+      },
+      {
+        'name': '_admin',
+        'type': 'address',
+        'value': 'e03793e63776cf69fe42414ed03bb924d4d9157e'
+      },
+      {
+        'name': '_feeAccount',
+        'type': 'address',
+        'value': 'e03793e63776cf69fe42414ed03bb924d4d9157e'
+      },
+      {
+        'name': '_feeTake',
+        'type': 'uint256',
+        'value': '2000000000000000'
+      },
+      {
+        'name': '_feeAmountThreshold',
+        'type': 'uint256',
+        'value': '100000000000000000'
+      },
+      {
+        'name': '_etherDelta',
+        'type': 'address',
+        'value': '8d12a197cb00d4747a1fe03395095ce2a5cc6819'
+      },
+      {
+        'name': '_tradeABIHash',
+        'type': 'bytes32',
+        'value': '57d54158692b43b05f55462695c3dc04b0217afddfda3f27a07ec31ee46b9c20'
+      },
+      {
+        'name': '_withdrawABIHash',
+        'type': 'bytes32',
+        'value': '369521fb20e3cff93d515dad43dc9f9f23dfdbb8d0ca564c480634d401bf9aa1'
+      }
+    ];
+    const result = decodeConstructorArgs(abi, bytecode);
+    assert.deepEqual(result, expected, 'result should match expected')
   });
 
 });
