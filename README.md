@@ -6,7 +6,7 @@ Canoe works by reading a contract's ABI and decoding the constructor bytecode wi
 
 ## Install
 
-    npm install canoe-soldity
+    npm install canoe-solidity
 
 ## Requirements
 - ABI schema 2.0
