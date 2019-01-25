@@ -63,7 +63,41 @@ function encodeConstructorArgs(inputs) {
   return bytecode;
 }
 
+/**
+ * Decodes function args.
+ *
+ * @param {Object} contractABI - ABI of contract whose args to decode
+ * @param {string} bytecode - full call args bytecode
+ * @returns {Object} decodedArgs - Object representing decoded args with name, type, and data fields
+ */
+function decodeFunctionArgs(contractABI, bytecode) {
+  const argsBuffer = new Buffer(bytecode, 'hex');
+  const methodID = argsBuffer.slice(0, 4);
+  const argsData = argsBuffer.slice(4);
+  const func = _.find(contractABI,  function(o) {
+    if (o.type === 'function') {
+      const inputTypes = _.pluck(o.inputs, 'type');
+      return methodID.compare(abi.methodID(o.name, inputTypes)) === 0;
+    }
+    return false;
+  });
+  
+  if (!func) {
+    return null;
+  }
+
+  const inputNames = _.pluck(func.inputs, 'name');
+  const inputTypes = _.pluck(func.inputs, 'type');
+  let decoded = abi.rawDecode(inputTypes, argsData);
+  let decodedArgs = _.map(decoded, function(e, i) {
+    const data = formatSingle(inputTypes[i], e);
+    return { 'name': inputNames[i], 'type': inputTypes[i], 'data': data };
+  });
+  return decodedArgs;
+}
+
 module.exports = {
   decodeConstructorArgs: decodeConstructorArgs,
-  encodeConstructorArgs: encodeConstructorArgs
+  encodeConstructorArgs: encodeConstructorArgs,
+  decodeFunctionArgs: decodeFunctionArgs
 };
