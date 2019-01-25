@@ -21,6 +21,9 @@ Canoe works by reading a contract's ABI and decoding the constructor bytecode wi
 <dt><a href="#encodeConstructorArgs">encodeConstructorArgs(inputs)</a> ⇒ <code>string</code></dt>
 <dd><p>Generates constructor args bytecode based on input data.</p>
 </dd>
+<dt><a href="#decodeFunctionArgs">decodeFunctionArgs(contractABI, bytecode)</a> ⇒ <code>Object</code></dt>
+<dd><p>Decodes function call args.</p>
+</dd>
 </dl>
 
 <a name="decodeConstructorArgs"></a>
@@ -49,6 +52,20 @@ Generates constructor args bytecode based on input data.
 | inputs | <code>Array.&lt;Object&gt;</code> | Array of objects with name, and type fields |
 | inputs[].name | <code>string</code> | Name of argument |
 | inputs[].type | <code>string</code> | Type of argument |
+
+
+<a name="decodeFunctionArgs"></a>
+
+### decodeFunctionArgs(contractABI, bytecode) ⇒ <code>Object</code>
+Decodes function args.
+
+**Kind**: global function  
+**Returns**: <code>Object</code> - decodedArgs - Object representing decoded args with name, type, and data fields  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| contractABI | <code>Object</code> | ABI of contract whose args to decode |
+| bytecode | <code>string</code> | function args bytecode, methohID included |
 
 
 ### Supported Types
@@ -98,7 +115,7 @@ Generates constructor args bytecode based on input data.
           'stateMutability': 'nonpayable',
           'type': 'constructor'
         }
-      ];
+      ]
     };
     let bytecodeExample = '00000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000008ac7230489e80000000000000000000000000000000000000000000000000000000000000000016000000000000000000000000000000000000000000000000000000000000001a00000000000000000000000000000000000000000000000000000000000000002000000000000000000000000ffffffffffffffffffffffffffffffffffffffff000000000000000000000000f1e48f13768bd8114a530070b43257a63f24bb1200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000012457468657265756d31302051322d32303138000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034531300000000000000000000000000000000000000000000000000000000000';
     decodeConstructorArgs(abiExample.abi, bytecodeExample);

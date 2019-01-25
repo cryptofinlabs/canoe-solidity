@@ -26,7 +26,7 @@ let inputs = [
     'name': 'strings',
     'type': 'string[]',
     'data': ['0xaa', '0xbb', '0xcc', '0xdd']
-  }
+  },
   {
     'name': 'bytes',
     'type': 'bytes',
