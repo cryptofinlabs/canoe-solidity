@@ -77,11 +77,11 @@ function decodeFunctionArgs(contractABI, bytecode) {
   const func = _.find(contractABI,  function(o) {
     if (o.type === 'function') {
       const inputTypes = _.pluck(o.inputs, 'type');
-      return methodID.compare(abi.methodID(o.name, inputTypes)) === 0;
+      return methodID.equals(abi.methodID(o.name, inputTypes));
     }
     return false;
   });
-  
+
   if (!func) {
     return null;
   }
