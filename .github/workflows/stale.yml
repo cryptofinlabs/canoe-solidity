@@ -1,0 +1,207 @@
+name: Mark stale issues and pull requests
+
+on:Skip to content
+Search
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@kingheath 
+Learn Git and GitHub without any code!
+Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
+
+
+0
+170kingheath/canoe-solidity
+forked from cryptofinlabs/canoe-solidity
+ Code Pull requests 0 Actions Projects 0 Wiki Security Insights Settings
+Lightweight Javascript library for decoding constructor arguments.
+ 15 commits
+ 1 branch
+ 0 packages
+ 0 releases
+ 2 contributors
+ MIT
+ Pull request  CompareThis branch is 1 commit ahead of cryptofinlabs:master.
+@kingheath
+kingheath 599682f309ae5a980c26708bb641d7e4eca8b13129058dd1e …
+Latest commit
+e3c9911
+27 days ago
+Type	Name	Latest commit message	Commit time
+.github/workflows	599682f309ae5a980c26708bb641d7e4eca8b13129058dd1e	27 days ago
+data	Add proper support for arrays and add extensive tests	2 years ago
+scripts	Add 'decodeFunctionArgs' to decode function type args	11 months ago
+test	Add 'decodeFunctionArgs' to decode function type args	11 months ago
+.gitignore	Add constructor arguments decoder	2 years ago
+LICENSE.md	Add licence	last year
+README.md	Add 'decodeFunctionArgs' to decode function type args	11 months ago
+index.js	Use equals method	11 months ago
+package.json	Add installation instructions	2 years ago
+ README.md
+canoe Canoe Solidity
+Lightweight Javascript library for decoding constructor arguments.
+
+Summary
+Canoe works by reading a contract's ABI and decoding the constructor bytecode with the argument types provided.
+
+Install
+npm install canoe-solidity
+Requirements
+ABI schema 2.0
+Documentation
+Functions
+decodeConstructorArgs(contractABI, bytecode) ⇒ Object
+Decodes constructor args.
+
+encodeConstructorArgs(inputs) ⇒ string
+Generates constructor args bytecode based on input data.
+
+decodeFunctionArgs(contractABI, bytecode) ⇒ Object
+Decodes function call args.
+
+
+decodeConstructorArgs(contractABI, bytecode) ⇒ Object
+Decodes constructor args.
+
+Kind: global function
+Returns: Object - decodedArgs - Object representing decoded args with name, type, and data fields
+
+Param	Type	Description
+contractABI	Object	ABI of contract whose args to decode
+bytecode	string	Constructor args bytecode
+
+encodeConstructorArgs(inputs) ⇒ string
+Generates constructor args bytecode based on input data.
+
+Kind: global function
+Returns: string - bytecode - Constructor args bytecode
+
+Param	Type	Description
+inputs	Array.<Object>	Array of objects with name, and type fields
+inputs[].name	string	Name of argument
+inputs[].type	string	Type of argument
+
+decodeFunctionArgs(contractABI, bytecode) ⇒ Object
+Decodes function args.
+
+Kind: global function
+Returns: Object - decodedArgs - Object representing decoded args with name, type, and data fields
+
+Param	Type	Description
+contractABI	Object	ABI of contract whose args to decode
+bytecode	string	function args bytecode, methohID included
+Supported Types
+ bool
+ uint
+ int
+ fixed
+ address
+ bytes1, bytes2, bytes3, ..., bytes32
+ byte
+ string
+ arrays
+ multi-dimensional arrays
+ mapping
+ struct
+Example
+const { decodeConstructorArgs } = require('canoe-solidity');
+let abiExample = {
+  'abi': [
+    {
+      'anonymous': false,
+      'inputs': [
+        {
+          'name': 'addresses',
+          'type': 'address[]',
+        },
+        {
+          'name': 'quantities',
+          'type': 'uint256[]',
+        },
+        {
+          'name': '_creationUnit',
+          'type': 'uint256',
+        },
+        {
+          'name': '_name',
+          'type': 'string',
+        },
+        {
+          'name': '_symbol',
+          'type': 'string',
+        }
+      ],
+      'payable': false,
+      'stateMutability': 'nonpayable',
+      'type': 'constructor'
+    }
+  ]
+};
+let bytecodeExample = '00000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000008ac7230489e80000000000000000000000000000000000000000000000000000000000000000016000000000000000000000000000000000000000000000000000000000000001a00000000000000000000000000000000000000000000000000000000000000002000000000000000000000000ffffffffffffffffffffffffffffffffffffffff000000000000000000000000f1e48f13768bd8114a530070b43257a63f24bb1200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000012457468657265756d31302051322d32303138000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034531300000000000000000000000000000000000000000000000000000000000';
+decodeConstructorArgs(abiExample.abi, bytecodeExample);
+Output:
+
+[
+  {
+    "name": "addresses",
+    "type": "address[]",
+    "data": [
+      "ffffffffffffffffffffffffffffffffffffffff",
+      "f1e48f13768bd8114a530070b43257a63f24bb12"
+    ]
+  },
+  {
+    "name": "quantities",
+    "type": "uint256[]",
+    "data": [
+      "5",
+      "10"
+    ]
+  },
+  {
+    "name": "_creationUnit",
+    "type": "uint256",
+    "data": "10000000000000000000"
+  },
+  {
+    "name": "_name",
+    "type": "string",
+    "data": "Ethereum10 Q2-2018"
+  },
+  {
+    "name": "_symbol",
+    "type": "string",
+    "data": "E10"
+  }
+]
+© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+
+  schedule:
+  - cron: "599682f309ae5a980c26708bb641d7e4eca8b13129058dd1e * * *"
+
+jobs:599682f309ae5a980c26708bb641d7e4eca8b13129058dd1e
+  stale:599682f309ae5a980c26708bb641d7e4eca8b13129058dd1e
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/stale@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-message: 'Stale issue message'
+        stale-pr-message: 'Stale pull request message'
+        stale-issue-label: 'no-issue-activity'
+        stale-pr-label: 'no-pr-activity'
